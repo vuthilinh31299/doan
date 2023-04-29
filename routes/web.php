@@ -29,29 +29,30 @@ function dashBoardRoutes(){
 // }
 
 Route::group(['prefix' => '/', 'namespace' => 'Auth', 'as' => 'front.'],function(){
-    Route::get('/loginuser', 'LoginController@getLoginPageUser')->name('getlogin');
-    // Route::post('/loginuser', 'LoginController@postLoginUser')->name('postLogin');
-    // Route::get('/registeruser', 'RegisterController@getRegister')->name('registerUser');
-    // Route::post('registeruser', 'RegisterController@postRegister')->name('postRegister');
-    // Route::get('/logoutUser',  function(){Auth::logout();return redirect()->route('front.index');})->name('logOutUser');
+    Route::get('/loginuser', 'App\Http\Controllers\Auth\LoginController@getLoginPageUser')->name('getlogin');
+    Route::post('/loginuser', 'LoginController@postLoginUser')->name('postLogin');
+    Route::get('/registeruser', 'RegisterController@getRegister')->name('registerUser');
+    Route::post('registeruser', 'RegisterController@postRegister')->name('postRegister');
+    Route::get('/logoutUser',  function(){Auth::logout();return redirect()->route('front.index');})->name('logOutUser');
 });
 
 
 
-Route::group(['prefix' => 'admin', 'as' => 'dashboard.', 'namespace' => 'Auth'], function(){
-    Route::get('login', 'LoginController@getLoginPage')->name('login');
-    Route::post('login', 'LoginController@postLogin')->name('postLogin');
+Route::group(['prefix' => 'admin', 'as' => 'dashboard.'], function(){
+    Route::get('login', 'App\Http\Controllers\Auth\LoginController@getLoginPage')->name('login');
+    Route::post('login', 'Auth\LoginController@postLogin')->name('postLogin');
     Route::get('logout', 'LoginController@logOutAdmin')->name('logOut');
 }); 
-// Route::group(['prefix' => 'admin', 'as' => 'dashboard.', 'namespace' => 'Dashboard','middleware' => 'adminLogin'], function(){
-//     Route::get('/', 'DashboardController@index')->name('index');
-//     Route::group(['prefix' => 'provider'], function(){
-//         Route::get('/', 'ProvidersController@getList')->name('provider.list');
-//         Route::get('create', 'ProvidersController@getCreate')->name('provider.getCreate');
-//         Route::post('create', 'ProvidersController@postCreate')->name('provider.postCreate');
-//    });
+
+Route::group(['prefix' => 'admin', 'as' => 'dashboard.', 'namespace' => 'Dashboard','middleware' => 'adminLogin'], function(){
+    Route::get('/', 'DashboardController@index')->name('index');
+    Route::group(['prefix' => 'provider'], function(){
+        Route::get('/', 'ProvidersController@getList')->name('provider.list');
+        Route::get('create', 'ProvidersController@getCreate')->name('provider.getCreate');
+        Route::post('create', 'ProvidersController@postCreate')->name('provider.postCreate');
+   });
     
-// });
+});
 // frontRoutes();
 // dashBoardRoutes();
 

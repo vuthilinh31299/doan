@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
@@ -21,7 +21,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    // use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -44,7 +44,7 @@ class LoginController extends Controller
      * 
      */
     public function getLoginPage(){
-        dd("ádasd");
+        // dd("ádasd");
         if( Auth::check() ){
             $user = Auth::user();
             if( $user->is_admin == 1 ){
